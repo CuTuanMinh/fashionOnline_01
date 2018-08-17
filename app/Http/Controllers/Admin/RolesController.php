@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleFormRequest;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
-use App\Comment;
-
-use App\User;
-
-use Illuminate\Support\Facades\Auth;
-
-class CommentController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +17,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+        return view('backend.roles.index', compact('roles'));
     }
 
     /**
@@ -29,7 +28,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.roles.create');
     }
 
     /**
@@ -38,29 +37,10 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleFormRequest $request)
     {
-        if (Auth::check()) {
-            $comment = new Comment();
-            $comment->user_id = Auth::id();
-            $comment->content = $request->get('comment');
-            if ($request->get('type')=='type') {
-                $comment->type = 'product';
-                $comment->post_or_product_id = $request->get('product_id');
-            }
-            // $comment->type = 'product';
-            else {
-                $comment->type = 'post';
-                $comment->post_or_product_id = $request->get('post_id');
-            }
-            // $comment->post_or_product_id = $request->get('product_id');
-            $comment->save();
-            return redirect()->back();
-        }
-        else {
-            return view('auth.login');
-        }
-
+        Role::create(['name' => $request->get('name')]);
+        return redirect('/admin/roles/create')->with('status', 'A new role has been created!');
     }
 
     /**

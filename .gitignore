@@ -12,4 +12,5 @@ yarn-error.log
 .env
 /public/bower_components
 /public/images
+/public/admin_assets
 

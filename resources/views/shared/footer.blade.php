@@ -135,7 +135,8 @@
                                 <h2>{{ __('About Shopper') }}</h2>
                                     {!! Form::open(['url' => '#']) !!}
                                     {!! Form::text( 'email', null, ['placeholder' => __('Your email address') ]); !!}
-                                    {!! Form::submit( __('Submit Email'), array('class' => 'btn btn-default' )); !!}
+                                    <!-- {!! Form::button( __('Submit Email'), array('class' => 'btn btn-default' )); !!} -->
+                                    {{ Form::button( __('Submit Email'), ['type' => 'submit', 'class' => 'btn btn-default'])  }}
                                     <i class="fa fa-arrow-circle-o-right"></i>
                                     {!! Form::close() !!}
                             </div>

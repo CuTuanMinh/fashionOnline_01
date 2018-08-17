@@ -29,8 +29,8 @@ class AddNullableAttrToUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('address')->nullable(false)->change();
-            $table->dropColumn('phone')->nullable(false)->change();
-            $table->dropColumn('role')->nullable(false)->change();
+            $table->string('phone')->nullable(false)->change();
+            $table->string('role')->nullable(false)->change();
         });
     }
 }

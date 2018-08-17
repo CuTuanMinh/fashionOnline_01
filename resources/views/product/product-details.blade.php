@@ -213,7 +213,16 @@
 									@foreach ($comments as $comment)
 									<li class="media">
 										<a class="pull-left" href="#">
+											
+											{{-- @if (($comment->user->image_url)==null) --}}
+												{{-- <img class="media-object" src="{{asset('images/blog/unname.jpg')}}" alt=""> --}}
+											{{-- @else --}}
+												{{-- <img class="media-object" src="{{asset("$comment->user->image_url")}}" alt=""> --}}
+											{{-- @endif --}}
+
                                 			<img class="media-object" src="{{asset('images/blog/man-two.jpg')}}" alt="">
+                                			{{-- <img class="media-object" src="{{asset("$comment->user->image_url")}}" alt=""> --}}
+
                             			</a>
                             			<div class="media-body">
                                 			<ul class="sinlge-post-meta">
@@ -227,8 +236,10 @@
                         			</li>
 
                         			@endforeach
+           
 									{!! Form::open (['method'=>'POST','url'=>'/comments/store']) !!}
 									{!! Form::hidden('product_id',$product->id)!!}
+									{!! Form::hidden('type','type')!!}
 									{!! Form::textarea('comment',null,['placeholder'=>_('Comment')]) !!}
 									{!! Form::submit( __('Submit') , ['class' => 'btn btn-default']) !!}
 									{!! Form::close() !!}

@@ -30,7 +30,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="logo pull-left">
-                                <a href="#"><img src="{{ asset('images/home/logo.png') }}" alt="" /></a>
+                                <a href="{{ route('home') }}"><img src="{{ asset('images/home/logo.png') }}" alt="" /></a>
                             </div>
                             <div class="btn-group pull-right">
                             <div class="btn-group">
@@ -48,17 +48,17 @@
                         <div class="col-sm-8">
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="#"><i class="fa fa-user"></i> {{ Auth::check() ? Auth::user()->name : __('Account') }}</a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i> {{ __('Wishlist') }}</a></li>
+                                    <li><a href="{{ Auth::check() ? route('users.show') : route('login') }}"><i class="fa fa-user"></i> {{ Auth::check() ? Auth::user()->name : __('Account') }}</a></li>
+                                    <li><a href=""><i class="fa fa-star"></i> {{ __('Wishlist') }}</a></li>
                                     <li><a href="#"><i class="fa fa-crosshairs"></i> {{ __('Checkout') }}</a></li>
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i> {{ __('Cart') }}</a></li>
                                     @if(Auth::check())
-                                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    <li><a href = "{{ route('logout') }}" onclick= "event.preventDefault();
                                         document.getElementById('logout-form').submit(); "><i class="fa fa-lock"></i> {{ __('Logout') }}</a>
-                                        {!! Form::open(array('route' => 'logout', 'method' => 'POST', 'id' => 'logout-form')) !!}
+                                        {!! Form::open(array('route' => 'logout' , 'method' => 'POST' , 'id' => 'logout-form' , 'style' => 'display: none;' )) !!}
                                         {!! Form::close() !!}
                                     @else
-                                    <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> {{ __('Login') }}</a></li>
+                                    <li><a href= "{{ route('login') }}"><i class="fa fa-lock"></i> {{ __('Login') }}</a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -83,7 +83,7 @@
                                 <ul class="nav navbar-nav collapse navbar-collapse">
                                     <li><a href="{{route('home')}}" >{{ __('Home') }}</a></li>
                                     <li><a href="{{route('product')}}" >{{ __('Products') }}</a></li>
-                                    <li><a href="#" >{{ __('Blog') }}</a></li>
+                                    <li><a href="{{ route('posts.index') }}" >{{ __('Blog') }}</a></li>
                                     <li><a href="#" >{{ __('Contact Us') }}</a></li>
                                 </ul>
                             </div>

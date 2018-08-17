@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Post;
+
+use App\Category;
+
+use App\Brand;
+
 use App\Comment;
 
-use App\User;
-
-use Illuminate\Support\Facades\Auth;
-
-class CommentController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +21,11 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('posts.index', compact('posts','categories','brands'));
+        // return view('posts.index',['posts='=>$posts,'categories'=>$categories,'brands'=>$brands]);
     }
 
     /**
@@ -29,7 +35,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -40,27 +46,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::check()) {
-            $comment = new Comment();
-            $comment->user_id = Auth::id();
-            $comment->content = $request->get('comment');
-            if ($request->get('type')=='type') {
-                $comment->type = 'product';
-                $comment->post_or_product_id = $request->get('product_id');
-            }
-            // $comment->type = 'product';
-            else {
-                $comment->type = 'post';
-                $comment->post_or_product_id = $request->get('post_id');
-            }
-            // $comment->post_or_product_id = $request->get('product_id');
-            $comment->save();
-            return redirect()->back();
-        }
-        else {
-            return view('auth.login');
-        }
-
+        //
     }
 
     /**
@@ -71,7 +57,12 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        $categories = Category::all();
+        $brands = Brand::all();
+        $comments = Comment::where('type','post')->where('post_or_product_id',$id)->get();
+        return view('posts.show', compact('post','categories','brands','comments'));
+        // return view('posts.show',['post'=>$post,'categories'=>$categories,'brands'=>$brands,'comments'=>$comments]);
     }
 
     /**

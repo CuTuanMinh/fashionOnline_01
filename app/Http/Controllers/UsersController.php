@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Comment;
-
+use App\Http\Requests\UserEditFormRequest;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 
-use Illuminate\Support\Facades\Auth;
-
-class CommentController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,27 +37,7 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::check()) {
-            $comment = new Comment();
-            $comment->user_id = Auth::id();
-            $comment->content = $request->get('comment');
-            if ($request->get('type')=='type') {
-                $comment->type = 'product';
-                $comment->post_or_product_id = $request->get('product_id');
-            }
-            // $comment->type = 'product';
-            else {
-                $comment->type = 'post';
-                $comment->post_or_product_id = $request->get('post_id');
-            }
-            // $comment->post_or_product_id = $request->get('product_id');
-            $comment->save();
-            return redirect()->back();
-        }
-        else {
-            return view('auth.login');
-        }
-
+        //
     }
 
     /**
@@ -69,9 +46,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $user = Auth::user();
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -80,9 +58,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user = Auth::user();
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -92,9 +71,18 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserEditFormRequest $request)
     {
-        //
+        $user = Auth::user();
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->address = $request->get('address');
+        $user->description = $request->get('description');
+        $user->phone = $request->get('phone');
+        $user->password = bcrypt($request->get('password'));
+        $user->image_url = '/images/home/' . $request->get('image_url');
+        $user->save();
+        return redirect(action('UsersController@show'))->with('status', 'User profile has been updated!');
     }
 
     /**

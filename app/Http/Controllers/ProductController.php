@@ -23,10 +23,11 @@ class ProductController extends Controller
     }
     public function productDetails($id)
     {
-    	$product=Product::find($id);
+    	$product = Product::find($id);
         $categories = Category::all();
-        $brands= Brand::all();
-        $comments=Comment::where('type','product')->where('post_or_product_id',$id)->get();
+        $brands = Brand::all();
+        $comments = Comment::where('type','product')->where('post_or_product_id',$id)->get();
+        // $comments = Comment::paginate(3);
     	return view('product.product-details',['product'=>$product,'comments'=>$comments,'categories'=>$categories,'brands'=>$brands]);
     }
 
