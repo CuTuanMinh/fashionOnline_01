@@ -47,10 +47,12 @@ class CommentController extends Controller
             $comment->type = 'product';
             $comment->post_or_product_id = $request->get('product_id');
             $comment->save();
+            return redirect()->back();
         }
         else {
             return view('auth.login');
         }
+
     }
 
     /**

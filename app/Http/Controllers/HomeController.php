@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Product;
 
+use App\Category;
+
+use App\Brand;
+
 class HomeController extends Controller
 {
     /**
@@ -26,10 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::paginate(3);
-        return view('home',['products'=>$products]);
-        // echo $products->name;
-        // return view('home',['products'=>$products]);
-        // return view('home',compact('products'));
-        // return view('home');
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('home',['products'=>$products,'categories'=>$categories,'brands'=>$brands]);
     }
 }

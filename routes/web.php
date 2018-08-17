@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/product', 'ProductController@product')->name('product');
 
@@ -25,6 +25,6 @@ Route::get('/product/details/{id}','ProductController@productDetails');
 
 Route::post('/comments/store','CommentController@store');
 
-// Route::get('/comments/show', 'CommentController@show');
+Route::get('/category/{id}', 'ProductController@categoryProduct');
 
-// Route::resource('/comments','homeindex',['only'=>['store','show']]);
+Route::get('/brand/{id}','ProductController@brandProduct');

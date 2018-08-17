@@ -18,16 +18,16 @@
                     	@include('shared.sidebar')
                 	</div>
             	</div>
-
+				
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--features_items-->
 						<h2 class="title text-center">Features Items</h2>
-						@foreach ($products as $product)
+						@foreach ($category->product as $product)
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="{{$product->image_url}}" alt="" />
+										<img src="{{asset($product->image_url)}}" alt="" />
 										<h2>{{$product->price}}$</h2>
 										<p>{{$product->name}}</p>
 										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
@@ -50,7 +50,7 @@
 							</div>
 						</div>
 						@endforeach
-						{{$products->links()}}
+						{{-- {{$products->links()}} --}}
 						
 						
 						{{-- <ul class="pagination">
