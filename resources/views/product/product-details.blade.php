@@ -18,7 +18,7 @@
 						<div class="col-sm-5">
 							<div class="view-product">
 								<img src="{{asset("$product->image_url")}}" alt="" />
-								<h3>ZOOM</h3>
+								{{-- <h3>ZOOM</h3> --}}
 							</div>
 						</div>
 						<div class="col-sm-7">
@@ -214,11 +214,11 @@
 									<li class="media">
 										<a class="pull-left" href="#">
 											
-											{{-- @if (($comment->user->image_url)==null) --}}
-												{{-- <img class="media-object" src="{{asset('images/blog/unname.jpg')}}" alt=""> --}}
-											{{-- @else --}}
-												{{-- <img class="media-object" src="{{asset("$comment->user->image_url")}}" alt=""> --}}
-											{{-- @endif --}}
+											{{-- @if (is_null($comment->user->image_url))
+												<img class="media-object" src="{{asset('images/blog/unname.jpg')}}" alt="">
+											@else 
+												<img class="media-object" src="{{asset("$comment->user->image_url")}}" alt="">
+											@endif --}}
 
                                 			<img class="media-object" src="{{asset('images/blog/man-two.jpg')}}" alt="">
                                 			{{-- <img class="media-object" src="{{asset("$comment->user->image_url")}}" alt=""> --}}
@@ -227,8 +227,11 @@
                             			<div class="media-body">
                                 			<ul class="sinlge-post-meta">
                                     			<li><i class="fa fa-user"></i>{{$comment->user->name}}</li>
-                                    			<li><i class="fa fa-clock-o"></i> {{date('h:i:s A', strtotime($comment->create_at))}}</li>
-                                    			<li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($comment->create_at))}}</li>
+                                    			<li><i class="fa fa-clock-o"></i> {{date("h:i:s A", strtotime($comment->created_at))}}</li>
+                                    			
+                                    			<li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($comment->created_at))}}</li>
+
+                                    			
                                 			</ul>
                                 			<p>{{$comment->content}}</p>
                                 			<a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>

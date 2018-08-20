@@ -27,7 +27,6 @@ class ProductController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         $comments = Comment::where('type','product')->where('post_or_product_id',$id)->get();
-        // $comments = Comment::paginate(3);
     	return view('product.product-details',['product'=>$product,'comments'=>$comments,'categories'=>$categories,'brands'=>$brands]);
     }
 
@@ -45,5 +44,14 @@ class ProductController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         return view('product.brand',['brand'=>$brand,'categories'=>$categories,'brands'=>$brands]);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->get('keyword'); 
+        $categories = Category::all();
+        $brands = Brand::all();
+        $outputs = Product::where('title','like','%'.$keyword.'%')->orWhere('name','like','%'.$keyword.'%')->orWhere('description','like','%'.$keyword.'%')->get();
+        return view('search.output',['categories'=>$categories,'brands'=>$brands,'outputs'=>$outputs,'keyword'=>$keyword]);
     }
 }

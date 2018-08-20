@@ -37,8 +37,6 @@ Route::get('/brand/{id}','ProductController@brandProduct');
 
 Route::resource('posts', 'PostsController');
 
-// Route::get('/posts','PostsController@index');
-
 Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'), function () {
     Route::get('/', 'PagesController@home');
     Route::get('/users', 'UsersController@index');
@@ -50,4 +48,4 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
     Route::post('roles/create', 'RolesController@store');
 });
 
-
+Route::post('/search','ProductController@search');

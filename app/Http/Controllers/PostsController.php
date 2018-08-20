@@ -25,7 +25,6 @@ class PostsController extends Controller
         $categories = Category::all();
         $brands = Brand::all();
         return view('posts.index', compact('posts','categories','brands'));
-        // return view('posts.index',['posts='=>$posts,'categories'=>$categories,'brands'=>$brands]);
     }
 
     /**
@@ -62,7 +61,6 @@ class PostsController extends Controller
         $brands = Brand::all();
         $comments = Comment::where('type','post')->where('post_or_product_id',$id)->get();
         return view('posts.show', compact('post','categories','brands','comments'));
-        // return view('posts.show',['post'=>$post,'categories'=>$categories,'brands'=>$brands,'comments'=>$comments]);
     }
 
     /**

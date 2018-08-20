@@ -31,21 +31,12 @@
                             </ul>
                         </div>
                         <a href="{{route('posts.show',$post->id)}}">
-                            {{-- <img src="images/blog/{{$post->image_url}}" alt=""> --}}
                             <img src="{{$post->image_url}}" alt="">
                         </a>
                         <p>{{str_limit($post->content, 200)}}</p>
                         <a  class="btn btn-primary" href="{{ route('posts.show',$post->id) }}">Read More</a>
                     </div>
                     @endforeach
-                    {{-- <div class="pagination-area">
-                        <ul class="pagination">
-                            <li><a href="" class="active">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
-                        </ul>
-                    </div> --}}
                 </div>
             </div>
         </div>

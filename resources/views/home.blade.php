@@ -104,7 +104,7 @@
                                                 {{ __('Add to cart') }}
                                             </button>
                                         </form>
-                                        <a href='' class="btn btn-default add-to-cart"><i class="fa fa-info"></i>{{ __('View Details') }}</a>
+                                        <a href="{{url("/product/details/$product->id")}}" class="btn btn-default add-to-cart"><i class="fa fa-info"></i>{{ __('View Details') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -118,12 +118,6 @@
                     </div>
                     @endforeach
                     {{$products->links()}}
-                    {{-- <ul class="pagination">
-                        <li class="active"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">&raquo;</a></li>
-                    </ul> --}}
                 </div><!--features_items-->
 
                 <div class="category-tab"><!--category-tab-->
