@@ -59,7 +59,7 @@ class PostsController extends Controller
         $post = Post::find($id);
         $categories = Category::all();
         $brands = Brand::all();
-        $comments = Comment::where('type','post')->where('post_or_product_id',$id)->get();
+        $comments = Comment::where('type','post')->where('post_or_product_id',$id)->paginate(3);
         return view('posts.show', compact('post','categories','brands','comments'));
     }
 

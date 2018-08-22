@@ -25,7 +25,7 @@
                         <h3>{{$post->title}}</h3>
                         <div class="post-meta">
                             <ul>
-                                <li><i class="fa fa-user">{{$post->user->name}}</i> </li>
+                                <li><i class="fa fa-user"></i>{{$post->user->name}}</li>
                                 <li><i class="fa fa-clock-o"></i> {{date('h:i:s A', strtotime($post->created_at))}}</li>
                                 <li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($post->created_at))}}</li>
                             </ul>

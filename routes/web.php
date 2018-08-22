@@ -49,3 +49,5 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 });
 
 Route::post('/search','ProductController@search');
+
+Route::post('/reply/store','ReplyController@reply');

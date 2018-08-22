@@ -26,7 +26,7 @@ class ProductController extends Controller
     	$product = Product::find($id);
         $categories = Category::all();
         $brands = Brand::all();
-        $comments = Comment::where('type','product')->where('post_or_product_id',$id)->get();
+        $comments = Comment::where('type','product')->where('post_or_product_id',$id)->paginate(3);
     	return view('product.product-details',['product'=>$product,'comments'=>$comments,'categories'=>$categories,'brands'=>$brands]);
     }
 

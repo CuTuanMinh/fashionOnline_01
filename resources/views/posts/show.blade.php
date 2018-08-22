@@ -61,21 +61,67 @@
                 <div class="tab-pane fade active in" id="reviews" >
                     <div class="col-sm-12">
                         @foreach ($comments as $comment)
-                        <li class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="{{asset('images/blog/man-two.jpg')}}" alt="">
+                        {{-- <li class="media"> --}}
+                                {{-- <a class="pull-left" href="#">
+                                    <img class="media-object" src="{{asset('images/blog/man-two.jpg')}}" alt="" width="35" height="35">
+                                </a> --}}
+                                 <a class="pull-left" href="#">
+                                                        
+                                                    
+                                    @if (is_null($comment->user->image_url))
+                                        <img class="media-object" src="{{asset('images/blog/default-avatar.png')}}" alt="" width="35" height="35">
+                                    @else 
+                                        <img class="media-object" src="{{asset("$comment->user->image_url")}}" alt="" width="35" height="35">
+                                    @endif
                                 </a>
                                 <div class="media-body">
                                     <ul class="sinlge-post-meta">
                                         <li><i class="fa fa-user"></i>{{$comment->user->name}}</li>
-                                        <li><i class="fa fa-clock-o"></i> {{date('h:i:s A', strtotime($comment->create_at))}}</li>
-                                        <li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($comment->create_at))}}</li>
+                                        <li><i class="fa fa-clock-o"></i> {{date('h:i:s A', strtotime($comment->created_at))}}</li>
+                                        <li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($comment->created_at))}}</li>
                                     </ul>
                                     <p>{{$comment->content}}</p>
-                                    <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
+                                    {{-- <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a> --}}
+                                    @foreach ($comment->reply as $reply)
+                                                {{-- <li class="media2"> --}}
+                                                    <a class="pull-left" href="#">
+                                                        
+                                                    
+                                                        @if (is_null($reply->user->image_url))
+                                                            <img class="media-object" src="{{asset('images/blog/default-avatar.png')}}" alt="" width="35" height="35">
+                                                        @else 
+                                                            <img class="media-object" src="{{asset("$reply->user->image_url")}}" alt="" width="35" height="35">
+                                                        @endif
+                                                    </a>
+
+
+                                                    <div class="media-body">
+                                                        <ul class="sinlge-post-meta">
+                                                            
+                                                            <li><i class="fa fa-user"></i>{{$reply->user->name}}</li>
+                                                            <li><i class="fa fa-clock-o"></i> {{date("h:i:s A", strtotime($reply->created_at))}}</li>
+                                                            
+                                                            <li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($reply->created_at))}}</li>
+
+                                                            
+                                                        </ul>
+                                                        <p>{{$reply->content}}</p>
+                                                        
+                                                    </div>
+                                                {{-- </li> --}}
+                                               
+                                    @endforeach
+                                    {!! Form::open (['method'=>'POST','url'=>'/reply/store']) !!}
+                                    {!! Form::hidden('comment_id',$comment->id)!!}
+                                    
+                                    {!! Form::text('reply',null,['placeholder'=>_('Comment')]) !!}
+                                    {!! Form::submit( __('Reply') , ['class' => 'btn btn-default']) !!}
+                                    {!! Form::close() !!}
+                                    <br>
                                 </div>
-                        </li>
+                        {{-- </li> --}}
                         @endforeach
+                        {{$comments->links()}}
                         {!! Form::open (['method'=>'POST','url'=>'/comments/store']) !!}
                         {!! Form::hidden('post_id',$post->id)!!}
                         {!! Form::textarea('comment',null,['placeholder'=>_('Comment')]) !!}
