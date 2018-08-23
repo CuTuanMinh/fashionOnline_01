@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(3);
+        $products = Product::paginate(9);
         $categories = Category::all();
         $brands = Brand::all();
         return view('home',['products'=>$products,'categories'=>$categories,'brands'=>$brands]);

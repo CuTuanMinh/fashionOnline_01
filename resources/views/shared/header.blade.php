@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <form action="/search" method="POST" role="search">
+                            <form action="/search/product" method="POST" role="search">
                                 {{ csrf_field() }}
                                 <div class="search_box pull-right">
                                     <input type="text" name="keyword" autocomplete="on" placeholder="Search"/>

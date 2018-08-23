@@ -13,13 +13,14 @@ class CategoryProductSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
-        $limit = 100;
-        for ($i=0; $i < $limit; $i++) { 
-        	DB::table('category_products')->insert([
-        		'category_id' => App\Category::pluck('id')->random(),
-        		'product_id' => App\Product::pluck('id')->random()
-        	]);
-        }
+        // $faker = Faker\Factory::create();
+        // $limit = 150;
+        // for ($i=0; $i < $limit; $i++) { 
+        // 	DB::table('category_products')->insert([
+        // 		'category_id' => App\Category::pluck('id')->random(),
+        // 		'product_id' => App\Product::pluck('id')->random()
+        // 	]);
+        // }
+        factory(App\CategoryProduct::class, 150)->create();
     }
 }

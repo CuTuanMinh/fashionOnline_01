@@ -23,8 +23,7 @@ class PostsController extends Controller
     {
         $posts = Post::paginate(4);
         $categories = Category::all();
-        $brands = Brand::all();
-        return view('posts.index', compact('posts','categories','brands'));
+        return view('posts.index', compact('posts','categories'));
     }
 
     /**
@@ -58,9 +57,8 @@ class PostsController extends Controller
     {
         $post = Post::find($id);
         $categories = Category::all();
-        $brands = Brand::all();
         $comments = Comment::where('type','post')->where('post_or_product_id',$id)->paginate(3);
-        return view('posts.show', compact('post','categories','brands','comments'));
+        return view('posts.show', compact('post','categories','comments'));
     }
 
     /**

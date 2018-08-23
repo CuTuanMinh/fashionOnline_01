@@ -47,7 +47,9 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
     Route::post('roles/create', 'RolesController@store');
 });
 
-Route::post('/search','ProductController@search');
+Route::post('/search/product','ProductController@searchProduct');
+
+Route::post('search/post', 'ProductController@searchPost');
 
 Route::post('/reply/store','ReplyController@reply');
 

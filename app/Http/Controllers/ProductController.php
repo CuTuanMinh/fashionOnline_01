@@ -12,6 +12,8 @@ use App\Category;
 
 use App\Brand;
 
+use App\Post;
+
 class ProductController extends Controller
 {
     public function product()
@@ -46,12 +48,21 @@ class ProductController extends Controller
         return view('product.brand',['brand'=>$brand,'categories'=>$categories,'brands'=>$brands]);
     }
 
-    public function search(Request $request)
+    public function searchProduct(Request $request)
     {
         $keyword = $request->get('keyword'); 
         $categories = Category::all();
         $brands = Brand::all();
         $outputs = Product::where('name','like','%'.$keyword.'%')->orWhere('description','like','%'.$keyword.'%')->paginate(6);
-        return view('search.output',['categories'=>$categories,'brands'=>$brands,'outputs'=>$outputs,'keyword'=>$keyword]);
+        return view('search.product',['categories'=>$categories,'brands'=>$brands,'outputs'=>$outputs,'keyword'=>$keyword]);
+    }
+
+    public function searchPost(Request $request)
+    {
+        $keyword = $request->get('keyword');
+        $categories = Category::all();
+        $brands = Brand::all();
+        $outputs = Post::where('title','like','%'.$keyword.'%')->orWhere('content','like','%'.$keyword.'%')->paginate(6);
+        return view('search.post',['categories'=>$categories,'outputs'=>$outputs,'keyword'=>$keyword]);
     }
 }

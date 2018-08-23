@@ -148,25 +148,30 @@
             <div class="col-sm-9">
                 <div class="blog-post-area">
                     <h2 class="title text-center">Latest From Our Blog</h2>
-                    @foreach ($posts as $post)
-                    <div class="single-blog-post">
-                        <h3>{{$post->title}}</h3>
-                        <div class="post-meta">
-                            <ul>
-                                <li><i class="fa fa-user"></i>{{$post->user->name}}</li>
-                                <li><i class="fa fa-clock-o"></i> {{date('h:i:s A', strtotime($post->created_at))}}</li>
-                                <li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($post->created_at))}}</li>
-                            </ul>
+                    @if (count($outputs)>0) 
+                        <p>The search results for <b>{{$keyword}}</b> are: </p><br><br>
+                        @foreach ($outputs as $output)
+                        <div class="single-blog-post">
+                            <h3>{{$output->title}}</h3>
+                            <div class="post-meta">
+                                <ul>
+                                    <li><i class="fa fa-user"></i>{{$output->user->name}}</li>
+                                    <li><i class="fa fa-clock-o"></i> {{date('h:i:s A', strtotime($output->created_at))}}</li>
+                                    <li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($output->created_at))}}</li>
+                                </ul>
+                            </div>
+                            <a href="{{route('posts.show',$output->id)}}">
+                                <img src="{{asset("$output->image_url")}}" alt="">
+                            </a>
+                            <p>{{str_limit($output->content, 200)}}</p>
+                            <a  class="btn btn-primary" href="{{ route('posts.show',$output->id) }}">Read More</a>
+                            <br><br>
                         </div>
-                        <a href="{{route('posts.show',$post->id)}}">
-                            <img src="{{$post->image_url}}" alt="">
-                        </a>
-                        <p>{{str_limit($post->content, 200)}}</p>
-                        <a  class="btn btn-primary" href="{{ route('posts.show',$post->id) }}">Read More</a>
-                        <br><br>
-                    </div>
-                    @endforeach
-                    {{$posts->links()}}
+                        @endforeach
+                        {{$outputs->links()}}
+                    @else <h3>NO RESULTS</h3>
+                    @endif
+                    
                 </div>
             </div>
         </div>
