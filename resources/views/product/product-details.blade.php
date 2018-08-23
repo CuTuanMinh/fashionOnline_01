@@ -18,7 +18,6 @@
 						<div class="col-sm-5">
 							<div class="view-product">
 								<img src="{{asset("$product->image_url")}}" alt="" />
-								{{-- <h3>ZOOM</h3> --}}
 							</div>
 						</div>
 						<div class="col-sm-7">
@@ -56,56 +55,8 @@
 						</div>
 						<div class="tab-content">
 							<div class="tab-pane fade" id="details" >
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="images/home/gallery1.jpg" alt="" />
-												<h2>$56</h2>
-												<p>Easy Polo Black Edition</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="images/home/gallery2.jpg" alt="" />
-												<h2>$56</h2>
-												<p>Easy Polo Black Edition</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="images/home/gallery3.jpg" alt="" />
-												<h2>$56</h2>
-												<p>Easy Polo Black Edition</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-3">
-									<div class="product-image-wrapper">
-										<div class="single-products">
-											<div class="productinfo text-center">
-												<img src="images/home/gallery4.jpg" alt="" />
-												<h2>$56</h2>
-												<p>Easy Polo Black Edition</p>
-												<button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-											</div>
-										</div>
-									</div>
-								</div>
+								{{$product->description}}
 							</div>
-							
 							<div class="tab-pane fade" id="companyprofile" >
 								<div class="col-sm-3">
 									<div class="product-image-wrapper">
@@ -213,69 +164,49 @@
 									@foreach ($comments as $comment)
 									{{-- <li class="media"> --}}
 										<a class="pull-left" href="#">
-											
 											@if (is_null($comment->user->image_url))
 												<img class="media-object" src="{{asset('images/blog/default-avatar.png')}}" alt="" width="35" height="35">
 											@else 
 												<img class="media-object" src="{{asset("$comment->user->image_url")}}" alt="" width="35" height="35">
 											@endif
-
-                            			</a>
+										</a>
                             			<div class="media-body">
                                 			<ul class="sinlge-post-meta">
-                                				
-                                    			<li><i class="fa fa-user"></i>{{$comment->user->name}}</li>
+                                				<li><i class="fa fa-user"></i>{{$comment->user->name}}</li>
                                     			<li><i class="fa fa-clock-o"></i> {{date("h:i:s A", strtotime($comment->created_at))}}</li>
-                                    			
                                     			<li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($comment->created_at))}}</li>
-
-                                    			
-                                			</ul>
+                                    		</ul>
                                 			<p>{{$comment->content}}</p>
                                 			
                                 			@foreach ($comment->reply as $reply)
 												{{-- <li class="media"> --}}
-													{{-- <a class="pull-left" href="#">
-														<img class="media-object" src="{{asset('images/blog/man-two.jpg')}}" width="35" height="35" alt="">
-			                                		</a> --}}
 			                                		<a class="pull-left" href="#">
-											
 														@if (is_null($reply->user->image_url))
 															<img class="media-object" src="{{asset('images/blog/default-avatar.png')}}" alt="" width="35" height="35">
 														@else 
 															<img class="media-object" src="{{asset("$reply->user->image_url")}}" alt="" width="35" height="35">
 														@endif
-
-                            						</a>
+													</a>
 
 			                            			<div class="media-body">
 			                                			<ul class="sinlge-post-meta">
-			                                				
-			                                    			<li><i class="fa fa-user"></i>{{$reply->user->name}}</li>
+			                                				<li><i class="fa fa-user"></i>{{$reply->user->name}}</li>
 			                                    			<li><i class="fa fa-clock-o"></i> {{date("h:i:s A", strtotime($reply->created_at))}}</li>
 			                                    			
 			                                    			<li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($reply->created_at))}}</li>
 			                                    		</ul>
 			                                			<p>{{$reply->content}}</p>
-
-			                                			
-			                            			</div>
+			                                		</div>
 			                            		{{-- </li> --}}
-			                        			
-                        					@endforeach
+			                        		@endforeach
                         					{!! Form::open (['method'=>'POST','url'=>'/reply/store']) !!}
 											{!! Form::hidden('comment_id',$comment->id)!!}
-												
 											{!! Form::text('reply',null,['placeholder'=>_('Comment')]) !!}
 											{!! Form::submit( __('Reply') , ['class' => 'btn btn-default']) !!}
 											{!! Form::close() !!}
 											<br>
                         					{{-- </div> --}}
-                        						
-                        					
-
-                                			
-                            			</div>
+                        				</div>
                         			{{-- </li> --}}
 
                         			@endforeach

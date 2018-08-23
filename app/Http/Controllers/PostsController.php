@@ -21,7 +21,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(4);
         $categories = Category::all();
         $brands = Brand::all();
         return view('posts.index', compact('posts','categories','brands'));

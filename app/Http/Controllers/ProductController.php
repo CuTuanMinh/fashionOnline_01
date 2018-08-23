@@ -51,7 +51,7 @@ class ProductController extends Controller
         $keyword = $request->get('keyword'); 
         $categories = Category::all();
         $brands = Brand::all();
-        $outputs = Product::where('title','like','%'.$keyword.'%')->orWhere('name','like','%'.$keyword.'%')->orWhere('description','like','%'.$keyword.'%')->get();
+        $outputs = Product::where('name','like','%'.$keyword.'%')->orWhere('description','like','%'.$keyword.'%')->paginate(6);
         return view('search.output',['categories'=>$categories,'brands'=>$brands,'outputs'=>$outputs,'keyword'=>$keyword]);
     }
 }
