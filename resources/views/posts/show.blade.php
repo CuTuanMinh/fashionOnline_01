@@ -13,9 +13,16 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <div class="left-sidebar">
-                    @include('shared.sidebar')
-                </div>
+                <h2>{{ __('Categories') }}</h2>
+                <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                    @foreach ($categories as $category)
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"><a href="{{url("/blog/category/$category->id")}}">{{$category->name}}</a></h4>
+                                </div>
+                            </div>
+                    @endforeach
+                </div><!--/category-products-->
             </div>
             <div class="col-sm-9">
                 <div class="blog-post-area">
@@ -62,12 +69,7 @@
                     <div class="col-sm-12">
                         @foreach ($comments as $comment)
                         {{-- <li class="media"> --}}
-                                {{-- <a class="pull-left" href="#">
-                                    <img class="media-object" src="{{asset('images/blog/man-two.jpg')}}" alt="" width="35" height="35">
-                                </a> --}}
-                                 <a class="pull-left" href="#">
-                                                        
-                                                    
+                                <a class="pull-left" href="#">
                                     @if (is_null($comment->user->image_url))
                                         <img class="media-object" src="{{asset('images/blog/default-avatar.png')}}" alt="" width="35" height="35">
                                     @else 
@@ -83,37 +85,26 @@
                                     <p>{{$comment->content}}</p>
                                     {{-- <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a> --}}
                                     @foreach ($comment->reply as $reply)
-                                                {{-- <li class="media2"> --}}
+                                                {{-- <li class="media"> --}}
                                                     <a class="pull-left" href="#">
-                                                        
-                                                    
                                                         @if (is_null($reply->user->image_url))
                                                             <img class="media-object" src="{{asset('images/blog/default-avatar.png')}}" alt="" width="35" height="35">
                                                         @else 
                                                             <img class="media-object" src="{{asset("$reply->user->image_url")}}" alt="" width="35" height="35">
                                                         @endif
                                                     </a>
-
-
                                                     <div class="media-body">
                                                         <ul class="sinlge-post-meta">
-                                                            
                                                             <li><i class="fa fa-user"></i>{{$reply->user->name}}</li>
                                                             <li><i class="fa fa-clock-o"></i> {{date("h:i:s A", strtotime($reply->created_at))}}</li>
-                                                            
                                                             <li><i class="fa fa-calendar"></i> {{date('d M, Y', strtotime($reply->created_at))}}</li>
-
-                                                            
                                                         </ul>
                                                         <p>{{$reply->content}}</p>
-                                                        
                                                     </div>
                                                 {{-- </li> --}}
-                                               
                                     @endforeach
                                     {!! Form::open (['method'=>'POST','url'=>'/reply/store']) !!}
                                     {!! Form::hidden('comment_id',$comment->id)!!}
-                                    
                                     {!! Form::text('reply',null,['placeholder'=>_('Comment')]) !!}
                                     {!! Form::submit( __('Reply') , ['class' => 'btn btn-default']) !!}
                                     {!! Form::close() !!}

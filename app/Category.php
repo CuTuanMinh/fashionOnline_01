@@ -14,20 +14,18 @@ class Category extends Model
         return $this->hasMany('App\CategoryPost', 'category_id', 'id');
     }
 
+    public function post()
+    {
+        return $this->belongstoMany('App\Post', 'category_posts', 'category_id', 'post_id');
+    }
+
     public function categoryProduct()
     {
         return $this->hasMany('App\CategoryProduct', 'category_id', 'id');
     }
 
-    public function post()
-    {
-        return $this->belongstoMany('App\Post', 'post_id', 'category_id');
-    }
-
     public function product()
     {
-        // return $this->belongstoMany('App\Product', 'product_id', 'category_id');
         return $this->belongstoMany('App\Product','category_products','category_id','product_id');
-        // return $this->belongstoMany('App\Product');
     }
 }

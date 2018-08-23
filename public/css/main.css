@@ -727,6 +727,7 @@ h2.title:before{
   font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 
 .panel-group .panel-heading + .panel-collapse .panel-body {
@@ -775,6 +776,7 @@ h2.title:before{
   padding: 5px 25px;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 
 .brands-name .nav-stacked li a:hover{
@@ -2037,6 +2039,8 @@ h2.title {
   font-size: 11px;
   color: #393b3b;
   position: relative;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .blog-post-area 
@@ -2210,7 +2214,7 @@ h2.title {
 }
 
 .commnets .pull-left {
-  margin-right: 22px
+  margin-right: 22px;
 }
 
 .commnets p, 
@@ -2310,15 +2314,14 @@ h2.title {
   margin-bottom: 15px
 }
 
-
-
 .sinlge-post-meta li {
   background:#F0F0E9;
   color: #363432;
   float: left;
   font-size: 10px;
   font-weight: 700;
-  margin-right: 10px;
+  margin-right: 0px;
+  margin-left: 15px;
   padding: 0 10px 0 0;
   position: relative;
   text-transform: uppercase;

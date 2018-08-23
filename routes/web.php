@@ -24,7 +24,6 @@ Route::get('users/show', ['as' => 'users.show', 'uses' => 'UsersController@show'
 Route::get('users/edit', ['as' => 'users.edit', 'uses' => 'UsersController@edit']);
 Route::post('users/edit', ['as' => 'users.update', 'uses' => 'UsersController@update']);
 
-
 Route::get('/product', 'ProductController@product')->name('product');
 
 Route::get('/product/details/{id}','ProductController@productDetails');
@@ -51,3 +50,5 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 Route::post('/search','ProductController@search');
 
 Route::post('/reply/store','ReplyController@reply');
+
+Route::get('blog/category/{id}','BlogController@show');
