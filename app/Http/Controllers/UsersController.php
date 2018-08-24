@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserEditFormRequest;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Order;
+use App\OrderDetail;
 
 class UsersController extends Controller
 {
@@ -80,7 +82,9 @@ class UsersController extends Controller
         $user->description = $request->get('description');
         $user->phone = $request->get('phone');
         $user->password = bcrypt($request->get('password'));
-        $user->image_url = '/images/home/' . $request->get('image_url');
+        $file = $request->file('image_url');
+        $name = $file->getClientOriginalName();
+        $user->image_url = 'images/home/'.$name;
         $user->save();
         return redirect(action('UsersController@show'))->with('status', 'User profile has been updated!');
     }
@@ -94,5 +98,22 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showOrder()
+    {
+        $user = Auth::user();
+        $orders = $user->order;
+        return view('users.order', compact('user', 'orders'));
+    }
+
+    public function showOrderDetails($id)
+    {
+        $result = [];
+        $user = Auth::user();
+        $orders = Order::where('user_id', $user->id)->get();
+        $orderDetails = OrderDetail::where('order_id',$id)->get();
+        // return var_dump($result[0][1]);
+        return view('users.orderDetail', compact('user', 'orders', 'orderDetails'));
     }
 }

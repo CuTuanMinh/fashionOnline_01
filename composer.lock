@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86b6cb2e4884f7d75ec33e1ffd36e504",
+    "content-hash": "5829893b7405ab8d0e323f8cfd097b0a",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -670,36 +670,46 @@
             "time": "2017-06-15T17:19:42+00:00"
         },
         {
-            "name": "fzaninotto/faker",
-            "version": "v1.8.0",
+            "name": "gloudemans/shoppingcart",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de"
+                "url": "https://github.com/Crinsane/LaravelShoppingcart.git",
+                "reference": "7ff157b7e1ef10d27cd2759d5151aae2cc6b1b9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/f72816b43e74063c8b10357394b6bba8cb1c10de",
-                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de",
+                "url": "https://api.github.com/repos/Crinsane/LaravelShoppingcart/zipball/7ff157b7e1ef10d27cd2759d5151aae2cc6b1b9a",
+                "reference": "7ff157b7e1ef10d27cd2759d5151aae2cc6b1b9a",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3.3 || ^7.0"
+                "illuminate/events": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/session": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*"
             },
             "require-dev": {
-                "ext-intl": "*",
-                "phpunit/phpunit": "^4.8.35 || ^5.7",
-                "squizlabs/php_codesniffer": "^1.5"
+                "mockery/mockery": "~0.9.0",
+                "orchestra/testbench": "~3.1",
+                "phpunit/phpunit": "~5.0|~6.0|~7.0"
+            },
+            "suggest": {
+                "gloudemans/notify": "Simple flash notifications for Laravel"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.8-dev"
+                "laravel": {
+                    "providers": [
+                        "Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider"
+                    ],
+                    "aliases": {
+                        "Cart": "Gloudemans\\Shoppingcart\\Facades\\Cart"
+                    }
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Faker\\": "src/Faker/"
+                    "Gloudemans\\Shoppingcart\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -708,16 +718,16 @@
             ],
             "authors": [
                 {
-                    "name": "François Zaninotto"
+                    "name": "Rob Gloudemans",
+                    "email": "info@robgloudemans.nl"
                 }
             ],
-            "description": "Faker is a PHP library that generates fake data for you.",
+            "description": "Laravel Shoppingcart",
             "keywords": [
-                "data",
-                "faker",
-                "fixtures"
+                "laravel",
+                "shoppingcart"
             ],
-            "time": "2018-07-12T10:23:15+00:00"
+            "time": "2018-02-17T09:34:00+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

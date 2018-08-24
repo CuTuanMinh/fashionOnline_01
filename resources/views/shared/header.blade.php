@@ -49,14 +49,62 @@
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">
                                     <li><a href="{{ Auth::check() ? route('users.show') : route('login') }}"><i class="fa fa-user"></i> {{ Auth::check() ? Auth::user()->name : __('Account') }}</a></li>
-                                    <li><a href=""><i class="fa fa-star"></i> {{ __('Wishlist') }}</a></li>
-                                    <li><a href="#"><i class="fa fa-crosshairs"></i> {{ __('Checkout') }}</a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i> {{ __('Cart') }}</a></li>
+                                    @if(!Auth::check())
+                                    @else
+                                    @if(Auth::user()->hasRole('admin'))
+                                    <li><a href="/admin"><i class="fa fa-star"></i> Admin page</a></li>
+                                    @endif
+                                    @endif
+                                    @if(Cart::count()==0)
+                                    @else
+                                    <li><a href="/checkout"><i class="fa fa-crosshairs"></i> {{ __('Checkout') }}</a></li>
+                                    @endif
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"><i class="fa fa-shopping-cart"></i>
+                                        <span class="badge">{{Cart::count()}}</span></a>
+                                        <ul class="dropdown-menu">
+                                            <p align="center" class="pull-left"
+                                                style="font-weight:bold; margin:5px">
+                                                <i class="fa fa-shopping-cart"></i>
+                                               <span class="badge">{{Cart::count()}}</span></p>
+
+                                            <p align="center" class="pull-right"
+                                                style="font-weight:bold; margin:5px">Total:
+                                                <span style="color:green">{{Cart::total()}}</span></p>
+
+                                            <?php $cartData = Cart::content();?>
+                                                @if(count($cartData)!=0)
+                                                @foreach($cartData as $cartD)
+                                                  <div class="col-md-12" style="padding: 5px">
+                                                      <div class="col-sm-5">
+                                                          <img src="{{$cartD->options->img}}" style="width: 80%">
+                                                      </div>
+                                                      <div class="col-sm-7">
+                                                            <h4 style="margin: 0px">{{$cartD->name}}</h3>
+                                                            <p>Price: ${{$cartD->price}}  qty: {{$cartD->qty}}</p>
+                                                      </div>
+                                                  </div>
+                                                        @endforeach
+                                                  <br><br>
+                                                  <div class="row">
+                                                      <div class="col-md-5 pull-left">
+                                                          <a href="{{url('/checkout')}}"
+                                                            style="padding:5px; color:#fff; background-color:orange">Checkout</a>
+                                                      </div>
+                                                      <div class="col-md-5 pull-right">
+                                                            <a href="{{url('/cart')}}"
+                                                            style="padding:5px; color:#fff; background-color:blueviolet">View Cart</a>
+                                                        </div>
+                                                  </div>
+                                                @endif
+                                        </ul>
+                                  </li>
                                     @if(Auth::check())
                                     <li><a href = "{{ route('logout') }}" onclick= "event.preventDefault();
                                         document.getElementById('logout-form').submit(); "><i class="fa fa-lock"></i> {{ __('Logout') }}</a>
                                         {!! Form::open(array('route' => 'logout' , 'method' => 'POST' , 'id' => 'logout-form' , 'style' => 'display: none;' )) !!}
                                         {!! Form::close() !!}
+                                    </li>
                                     @else
                                     <li><a href= "{{ route('login') }}"><i class="fa fa-lock"></i> {{ __('Login') }}</a></li>
                                     @endif
@@ -81,8 +129,8 @@
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                    <li><a href="{{route('home')}}" >{{ __('Home') }}</a></li>
-                                    <li><a href="{{route('product')}}" >{{ __('Products') }}</a></li>
+                                    <li><a href="{{ route('home') }}" >{{ __('Home') }}</a></li>
+                                    <li><a href="{{route('product')}}">{{ __('Products') }}</a></li>
                                     <li><a href="{{ route('posts.index') }}" >{{ __('Blog') }}</a></li>
                                     <li><a href="#" >{{ __('Contact Us') }}</a></li>
                                 </ul>

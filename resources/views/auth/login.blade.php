@@ -7,6 +7,11 @@
         <div class="row">
             <div class="col-sm-4 col-sm-offset-4">
                 <div class="login-form"><!--login form-->
+                    @if (session('status'))
+                    <div class="alert alert-success">
+                    {{ session('status') }}
+                    </div>
+                    @endif
                     <h2>{{ __('Login to your account') }}</h2>
                     {!! Form::open(['method' => 'POST' , 'route' => 'login']) !!}
                         @foreach ($errors->all() as $error)
@@ -20,11 +25,11 @@
                     </span>
                     {{ Form::button('Sign in', ['type' => 'submit', 'class' => 'btn btn-default'] )  }}
                     {!! Form::close() !!}
-                </div><!--/login form-->
-                <div class="btn-toolbar" role="toolbar" aria-label="...">
-                    <a class="btn btn-link" href="{{ route('password.request') }}"> {{ __('Forgot Your Password?') }}</a>
-                    <a class="btn btn-link" href="{{ route('register') }}"> {{ __('Sign up') }}</a>
-                </div>
+                    </div><!--/login form-->
+                    <div class="btn-toolbar" role="toolbar" aria-label="...">
+                        <a class="btn btn-link" href="{{ route('password.request') }}"> {{ __('Forgot Your Password?') }}</a>
+                        <a class="btn btn-link" href="{{ route('register') }}"> {{ __('Sign up') }}</a>
+                    </div>
             </div>
         </div>
     </div>

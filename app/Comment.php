@@ -8,7 +8,7 @@ class Comment extends Model
 {
     protected $table = 'comments';
     public $timestamp = true;
-    
+
     public function object()
     {
         return $this->morphTo();
@@ -16,7 +16,7 @@ class Comment extends Model
 
     public function user()
     {
-    	return $this->belongsTo('App\User','user_id','id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
     public function reply()
